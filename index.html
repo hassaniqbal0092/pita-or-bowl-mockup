@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pita or Bowl — Build-Your-Own Mediterranean, Springfield IL</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,500&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream: #FAF2E1;
+    --cream-2: #F1E4C6;
+    --ink: #1F332B;
+    --olive: #55692F;
+    --olive-dark: #3E4E22;
+    --gold: #E2A63B;
+    --plum: #7A3B49;
+    --line: rgba(31,51,43,0.14);
+    --radius: 4px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Work Sans', sans-serif;
+    font-size:16px;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.display{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    letter-spacing:-0.01em;
+    margin:0;
+  }
+  a{color:inherit;}
+  img{max-width:100%;display:block;}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 28px;}
+  :focus-visible{outline:3px solid var(--gold); outline-offset:3px;}
+
+  /* ---------- NAV ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(250,242,225,0.92);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  nav.wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    padding-top:18px; padding-bottom:18px;
+  }
+  .logo{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:1.25rem;
+    letter-spacing:-0.01em;
+    display:flex; align-items:center; gap:10px;
+  }
+  .logo .mark{
+    width:30px; height:30px; border-radius:50%;
+    background: conic-gradient(from 200deg, var(--olive), var(--gold), var(--plum), var(--olive));
+    flex-shrink:0;
+  }
+  .nav-links{display:flex; align-items:center; gap:34px; font-size:0.92rem; font-weight:500;}
+  .nav-links a{text-decoration:none; opacity:0.82; transition:opacity .15s;}
+  .nav-links a:hover{opacity:1;}
+  .nav-cta{
+    background:var(--olive); color:var(--cream);
+    padding:10px 20px; border-radius:999px; font-size:0.88rem; font-weight:600;
+    text-decoration:none; white-space:nowrap; transition:background .15s;
+  }
+  .nav-cta:hover{background:var(--olive-dark);}
+  .nav-toggle{display:none;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    padding:76px 0 90px;
+    overflow:hidden;
+  }
+  .hero-grid{
+    display:grid; grid-template-columns: 1.1fr 0.9fr; gap:56px; align-items:center;
+  }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-size:0.8rem; font-weight:600; letter-spacing:0.06em; text-transform:uppercase;
+    color:var(--olive-dark); margin-bottom:22px;
+  }
+  .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--gold);}
+  .hero h1{
+    font-size:clamp(2.4rem, 4.6vw, 3.6rem);
+    line-height:1.04;
+  }
+  .hero h1 em{font-style:italic; color:var(--olive-dark);}
+  .hero p.lede{
+    margin-top:22px; font-size:1.08rem; max-width:46ch; opacity:0.86;
+  }
+  .hero-ctas{display:flex; gap:14px; margin-top:34px; flex-wrap:wrap;}
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:14px 26px; border-radius:999px; font-weight:600; font-size:0.95rem;
+    text-decoration:none; border:1px solid transparent; cursor:pointer;
+    transition:transform .15s ease, background .15s ease, border-color .15s;
+  }
+  .btn:hover{transform:translateY(-1px);}
+  .btn-primary{background:var(--ink); color:var(--cream);}
+  .btn-primary:hover{background:var(--olive-dark);}
+  .btn-ghost{background:transparent; border-color:var(--ink);}
+  .btn-ghost:hover{background:var(--ink); color:var(--cream);}
+
+  .rating-badge{
+    display:inline-flex; align-items:center; gap:10px; margin-top:30px;
+    padding:10px 16px 10px 10px; background:var(--cream-2); border-radius:999px;
+    font-size:0.86rem; font-weight:600;
+  }
+  .rating-badge .stars{color:var(--gold); letter-spacing:1px;}
+
+  /* Signature hero graphic: layered bowl rings behind real photo */
+  .bowl-art{position:relative; display:flex; align-items:center; justify-content:center;}
+  .bowl-art svg{width:100%; max-width:420px; height:auto;}
+  .ring{transform-origin:210px 210px; transition:transform .6s ease;}
+  .bowl-art:hover .ring1{transform:rotate(6deg);}
+  .bowl-art:hover .ring2{transform:rotate(-8deg);}
+  .bowl-art:hover .ring3{transform:rotate(10deg);}
+
+  .hero-photo{
+    position:relative; width:100%; max-width:360px; aspect-ratio:3/4;
+    border-radius:8px; overflow:hidden;
+    box-shadow:0 24px 48px -18px rgba(31,51,43,0.45);
+  }
+  .hero-photo img{width:100%; height:100%; object-fit:cover;}
+  .hero-photo .ring-behind{
+    position:absolute; inset:-38px; z-index:-1; opacity:0.9;
+  }
+  .hero-photo .ring-behind svg{width:100%; height:100%;}
+
+  .menu-card{position:relative; overflow:hidden;}
+  .menu-thumb{
+    width:100%; aspect-ratio:16/10; border-radius:3px; overflow:hidden; margin-bottom:20px;
+  }
+  .menu-thumb img{width:100%; height:100%; object-fit:cover; transition:transform .4s ease;}
+  .menu-card:hover .menu-thumb img{transform:scale(1.05);}
+
+  /* ---------- SECTION HEADERS ---------- */
+  .section{padding:86px 0;}
+  .section-alt{background:var(--cream-2);}
+  .section-head{max-width:56ch; margin-bottom:52px;}
+  .section-head .eyebrow{margin-bottom:16px;}
+  .section-head h2{font-size:clamp(1.8rem, 3vw, 2.4rem); line-height:1.12;}
+  .section-head p{margin-top:16px; opacity:0.82; font-size:1.02rem;}
+
+  /* ---------- BUILD YOUR BOWL (signature) ---------- */
+  .build-steps{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:0;
+    border-top:1px solid var(--line);
+  }
+  .step{
+    padding:34px 22px 34px 0; border-bottom:1px solid var(--line);
+    position:relative;
+  }
+  .step + .step{padding-left:26px;}
+  .step:not(:last-child)::after{
+    content:"→"; position:absolute; right:-4px; top:36px;
+    font-size:1.1rem; color:var(--gold); opacity:0.9;
+  }
+  .step-num{
+    font-family:'Fraunces', serif; font-style:italic; font-size:0.95rem;
+    color:var(--olive-dark); opacity:0.75; margin-bottom:14px; display:block;
+  }
+  .step-ring{
+    width:44px; height:44px; border-radius:50%; margin-bottom:16px;
+  }
+  .step h3{font-size:1.08rem; font-weight:600; font-family:'Work Sans',sans-serif; margin-bottom:8px;}
+  .step p{font-size:0.92rem; opacity:0.78; margin:0;}
+
+  /* ---------- MENU CARDS ---------- */
+  .menu-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px;}
+  .menu-card{
+    background:var(--cream); border:1px solid var(--line); border-radius:var(--radius);
+    padding:30px 26px; transition:border-color .15s, transform .15s;
+  }
+  .menu-card:hover{border-color:var(--olive); transform:translateY(-3px);}
+  .menu-card .tag{
+    display:inline-block; font-size:0.72rem; font-weight:700; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--plum); margin-bottom:14px;
+  }
+  .menu-card h3{font-size:1.3rem; margin-bottom:10px;}
+  .menu-card p{font-size:0.92rem; opacity:0.8; margin-bottom:18px;}
+  .menu-card .price{font-weight:600; font-size:0.9rem; color:var(--olive-dark);}
+  .menu-card .swatch{width:100%; height:6px; border-radius:3px; margin-bottom:20px;}
+
+  /* ---------- DIGITAL MENU ---------- */
+  .teaser-cta{margin-top:40px; text-align:center;}
+  .digital-menu-head{display:flex; align-items:flex-end; justify-content:space-between; gap:24px; flex-wrap:wrap;}
+  .menu-tabs{
+    display:flex; gap:8px; flex-wrap:wrap; margin-top:36px; margin-bottom:8px;
+    border-bottom:1px solid var(--line); padding-bottom:0;
+  }
+  .menu-tab{
+    appearance:none; border:none; background:none; cursor:pointer;
+    font-family:'Work Sans',sans-serif; font-size:0.92rem; font-weight:600; color:var(--ink);
+    padding:12px 18px; opacity:0.55; border-bottom:2px solid transparent;
+    transition:opacity .15s, border-color .15s; margin-bottom:-1px;
+  }
+  .menu-tab:hover{opacity:0.85;}
+  .menu-tab.active{opacity:1; border-bottom-color:var(--olive); color:var(--olive-dark);}
+  .menu-panels{margin-top:28px;}
+  .menu-panel{display:none;}
+  .menu-panel.active{display:block; animation:fadeIn .35s ease;}
+  @keyframes fadeIn{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:none;}}
+  .menu-items{display:grid; grid-template-columns:1fr 1fr; gap:0 40px;}
+  .menu-item{
+    display:flex; justify-content:space-between; gap:16px;
+    padding:20px 0; border-bottom:1px solid var(--line);
+  }
+  .menu-item-name{font-weight:600; font-size:1.02rem;}
+  .menu-item-tags{font-size:0.78rem; color:var(--olive-dark); font-weight:600; margin-left:8px;}
+  .menu-item-desc{font-size:0.87rem; opacity:0.7; margin-top:4px; max-width:38ch;}
+  .menu-item-price{font-weight:700; font-family:'Fraunces',serif; font-size:1.05rem; white-space:nowrap; padding-top:1px;}
+  .menu-note{margin-top:28px; font-size:0.85rem; opacity:0.65; text-align:center;}
+
+  /* ---------- ABOUT / VEGAN STRIP ---------- */
+  .about{
+    display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:center;
+  }
+  .about-copy p{opacity:0.85; margin-top:16px; font-size:1.02rem;}
+  .pill-row{display:flex; flex-wrap:wrap; gap:10px; margin-top:26px;}
+  .pill{
+    font-size:0.8rem; font-weight:600; padding:8px 16px; border-radius:999px;
+    border:1px solid var(--line); background:var(--cream);
+  }
+  .about-visual{
+    aspect-ratio:1/1; border-radius:8px; background:var(--ink); position:relative; overflow:hidden;
+  }
+  .about-visual svg{position:absolute; inset:0; width:100%; height:100%;}
+
+  /* ---------- VISIT / FOOTER ---------- */
+  .visit{
+    background:var(--ink); color:var(--cream);
+  }
+  .visit .section-head p{color:var(--cream); opacity:0.72;}
+  .visit .eyebrow{color:var(--gold);}
+  .visit-grid{display:grid; grid-template-columns:1fr 1fr; gap:48px;}
+  .visit-info dl{margin:0;}
+  .visit-info dt{
+    font-size:0.75rem; text-transform:uppercase; letter-spacing:0.06em; opacity:0.6; margin-top:26px;
+  }
+  .visit-info dt:first-child{margin-top:0;}
+  .visit-info dd{margin:6px 0 0; font-size:1.08rem; font-family:'Fraunces',serif; font-weight:500;}
+  .visit-info a{text-decoration:none; border-bottom:1px solid rgba(250,242,225,0.35);}
+  .visit-info a:hover{border-color:var(--gold);}
+  .map-frame{
+    border-radius:6px; overflow:hidden; border:1px solid rgba(250,242,225,0.18); min-height:280px;
+  }
+  .map-frame iframe{width:100%; height:100%; min-height:280px; border:0; filter:grayscale(0.15) contrast(1.05);}
+
+  footer{
+    background:var(--ink); color:var(--cream); border-top:1px solid rgba(250,242,225,0.14);
+    padding:26px 0; font-size:0.82rem; opacity:0.6;
+  }
+  footer .wrap{display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;}
+
+  .reveal{opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s ease;}
+  .reveal.in{opacity:1; transform:none;}
+
+  @media (max-width:860px){
+    .hero-grid{grid-template-columns:1fr;}
+    .bowl-art{order:-1; margin-bottom:8px;}
+    .bowl-art svg{max-width:260px;}
+    .build-steps{grid-template-columns:1fr 1fr;}
+    .step:nth-child(2)::after{display:none;}
+    .menu-grid{grid-template-columns:1fr;}
+    .menu-items{grid-template-columns:1fr;}
+    .digital-menu-head{flex-direction:column; align-items:flex-start;}
+    .menu-tabs{overflow-x:auto; flex-wrap:nowrap; -webkit-overflow-scrolling:touch;}
+    .menu-tab{white-space:nowrap;}
+    .about{grid-template-columns:1fr;}
+    .visit-grid{grid-template-columns:1fr;}
+    .nav-links{position:fixed; inset:64px 0 0 0; background:var(--cream); flex-direction:column;
+      justify-content:flex-start; padding:36px 28px; gap:26px; font-size:1.1rem;
+      transform:translateX(100%); transition:transform .25s ease;}
+    .nav-links.open{transform:translateX(0);}
+    .nav-toggle{
+      display:block; background:none; border:1px solid var(--line); border-radius:8px;
+      width:40px; height:40px; font-size:1.1rem; cursor:pointer;
+    }
+  }
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    .reveal, .ring, .btn{transition:none;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <div class="logo"><span class="mark"></span>Pita or Bowl</div>
+    <div class="nav-links" id="navLinks">
+      <a href="#menu">Menu</a>
+      <a href="#digital-menu">Digital Menu</a>
+      <a href="#build">Build a Bowl</a>
+      <a href="#about">About</a>
+      <a href="#visit">Visit</a>
+      <a class="nav-cta" href="#visit">Order Pickup</a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">☰</button>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow"><span class="dot"></span>Springfield, IL · Fast-casual Mediterranean</span>
+      <h1>Your bowl,<br><em>built your way.</em></h1>
+      <p class="lede">Fresh Mediterranean bowls, salads, and pitas — stacked layer by layer with the bases, proteins, and sauces you actually want. No two orders look the same.</p>
+      <div class="hero-ctas">
+        <a href="#visit" class="btn btn-primary">Order Pickup</a>
+        <a href="#visit" class="btn btn-ghost">Order Delivery</a>
+      </div>
+      <div class="rating-badge">
+        <span class="stars">★★★★★</span>
+        <span>4.9 from 1,040 Google reviews</span>
+      </div>
+    </div>
+    <div class="bowl-art">
+      <div class="hero-photo">
+        <div class="ring-behind" aria-hidden="true">
+          <svg viewBox="0 0 420 420" xmlns="http://www.w3.org/2000/svg">
+            <g class="ring ring1">
+              <circle cx="210" cy="210" r="190" fill="none" stroke="#55692F" stroke-width="22" stroke-dasharray="220 70"/>
+            </g>
+            <g class="ring ring2">
+              <circle cx="210" cy="210" r="150" fill="none" stroke="#E2A63B" stroke-width="18" stroke-dasharray="170 60"/>
+            </g>
+          </svg>
+        </div>
+        <img src="images/storefront.jpg" alt="Pita or Bowl storefront on S Grand Ave E, Springfield, IL">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="build">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow"><span class="dot"></span>How it works</span>
+      <h2>Four layers. One bowl that's entirely yours.</h2>
+      <p>Every order starts empty and gets built up in front of you — pick a base, a protein, whatever's fresh that day, and finish it your way.</p>
+    </div>
+    <div class="build-steps reveal">
+      <div class="step">
+        <span class="step-num">01</span>
+        <div class="step-ring" style="background:#55692F"></div>
+        <h3>Pick a base</h3>
+        <p>Rice, greens, or warm pita — the foundation for everything on top.</p>
+      </div>
+      <div class="step">
+        <span class="step-num">02</span>
+        <div class="step-ring" style="background:#E2A63B"></div>
+        <h3>Choose your protein</h3>
+        <p>Chicken shawarma, falafel, gyro, or grilled veggies for a fully vegan build.</p>
+      </div>
+      <div class="step">
+        <span class="step-num">03</span>
+        <div class="step-ring" style="background:#7A3B49"></div>
+        <h3>Load it up</h3>
+        <p>Hummus, tabbouleh, pickled turnips, olives — as much as fits.</p>
+      </div>
+      <div class="step">
+        <span class="step-num">04</span>
+        <div class="step-ring" style="background:#1F332B"></div>
+        <h3>Finish with sauce</h3>
+        <p>Garlic toum, tzatziki, or house hot sauce ties the whole bowl together.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt" id="menu">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow"><span class="dot"></span>On the menu</span>
+      <h2>Three ways to eat it.</h2>
+      <p>Same fresh ingredients, three formats — however you're hungry today.</p>
+    </div>
+    <div class="menu-grid reveal">
+      <div class="menu-card">
+        <div class="menu-thumb"><img src="images/platter.jpg" alt="Grilled chicken and beef skewers with tomato and toum at Pita or Bowl"></div>
+        <span class="tag">Bowls</span>
+        <h3>Build-Your-Own Bowl</h3>
+        <p>Start with rice or greens, add your protein, and load up on toppings and sauce.</p>
+        <span class="price">$10–14</span>
+      </div>
+      <div class="menu-card">
+        <div class="swatch" style="background:#E2A63B"></div>
+        <span class="tag">Salads</span>
+        <h3>Chopped Mediterranean Salad</h3>
+        <p>Crisp greens, cucumber, tomato, feta, and olives, tossed with house lemon vinaigrette.</p>
+        <span class="price">$9–13</span>
+      </div>
+      <div class="menu-card">
+        <div class="menu-thumb"><img src="images/wrap.jpg" alt="Stuffed pita wrap with lettuce, pickled turnip and slaw at Pita or Bowl"></div>
+        <span class="tag">Pitas</span>
+        <h3>Stuffed Pita Wrap</h3>
+        <p>Warm pita packed with your choice of protein, veggies, and sauce, wrapped to go.</p>
+        <span class="price">$9–12</span>
+      </div>
+    </div>
+    <div class="teaser-cta reveal">
+      <a href="#digital-menu" class="btn btn-ghost">View Full Digital Menu</a>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="digital-menu">
+  <div class="wrap">
+    <div class="digital-menu-head reveal">
+      <div>
+        <span class="eyebrow"><span class="dot"></span>Digital menu</span>
+        <h2>The full menu, all in one place.</h2>
+      </div>
+      <p style="max-width:34ch; opacity:0.8; margin:0;">Browse by category — same menu you'll see on the counter board, right from your phone.</p>
+    </div>
+
+    <div class="menu-tabs reveal" role="tablist" aria-label="Menu categories">
+      <button class="menu-tab active" data-tab="bowls" role="tab" aria-selected="true">Bowls</button>
+      <button class="menu-tab" data-tab="salads" role="tab" aria-selected="false">Salads</button>
+      <button class="menu-tab" data-tab="pitas" role="tab" aria-selected="false">Pitas &amp; Wraps</button>
+      <button class="menu-tab" data-tab="sides" role="tab" aria-selected="false">Sides &amp; Dips</button>
+      <button class="menu-tab" data-tab="drinks" role="tab" aria-selected="false">Drinks</button>
+    </div>
+
+    <div class="menu-panels reveal">
+      <div class="menu-panel active" id="panel-bowls">
+        <div class="menu-items">
+          <div class="menu-item">
+            <div><span class="menu-item-name">Build-Your-Own Bowl</span><span class="menu-item-tags">Vegan option</span>
+              <div class="menu-item-desc">Rice, greens, or warm pita base with your choice of protein, toppings, and sauce.</div></div>
+            <div class="menu-item-price">$10.99</div>
+          </div>
+          <div class="menu-item">
+            <div><span class="menu-item-name">Chicken Shawarma Bowl</span>
+              <div class="menu-item-desc">Marinated chicken shawarma over rice with hummus, pickled turnip, and toum.</div></div>
+            <div class="menu-item-price">$12.49</div>
+          </div>
+          <div class="menu-item">
+            <div><span class="menu-item-name">Falafel Bowl</span><span class="menu-item-tags">Vegan</span>
+              <div class="menu-item-desc">Crispy falafel, greens, tomato, cucumber, and tahini sauce.</div></div>
+            <div class="menu-item-price">$11.49</div>
+          </div>
+          <div class="menu-item">
+            <div><span class="menu-item-name">Gyro Bowl</span>
+              <div class="menu-item-desc">Seasoned beef and lamb gyro over rice with tzatziki and pickled onion.</div></div>
+            <div class="menu-item-price">$12.99</div>
+          </div>
+          <div class="menu-item">
+            <div><span class="menu-item-name">Grilled Veggie Bowl</span><span class="menu-item-tags">Vegan</span>
+              <div class="menu-item-desc">Charred seasonal vegetables over rice with hummus and herb sauce.</div></div>
+            <div class="menu-item-price">$10.99</div>
+          </div>
+          <div class="menu-item">
+            <div><span class="menu-item-name">Kids Bowl</span>
+              <div class="menu-item-desc">Half-size bowl, one protein, two toppings.</div></div>
+            <div class="menu-item-price">$7.49</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-panel" id="panel-salads">
+        <div class="menu-items">
+          <div class="menu-item">
+            <div><span class="menu-item-name">Chopped Mediterranean Salad</span><span class="menu-item-tags">Vegan option</span>
+              <div class="menu-item-desc">Crisp greens, cucumber, tomato, feta, and olives with lemon vinaigrette.</div></div>
+            <div class="menu-item-price">$9.99</div>
+          </div>
+          <div class="menu-item">
+            <div><span class="menu-item-name">Fattoush Salad</span><span class="menu-item-tags">Vegan</span>
+              <div class="menu-item-desc">Mixed greens, radish, and toasted pita chips with sumac dressing.</div></div>
+            <div class="menu-item-price">$10.49</div>
+          </div>
+          <div class="menu-item">
+            <div><span class="menu-item-name">Tabbouleh</span><span class="menu-item-tags">Vegan</span>
+              <div class="menu-item-desc">Parsley, tomato, bulgur, and mint tossed in lemon and olive oil.</div></div>
+            <div class="menu-item-price">$8.99</div>
+          </div>
+          <div class="menu-item">
+            <div><span class="menu-item-name">Protein-Topped Salad</span>
+              <div class="menu-item-desc">Any house salad topped with your choice of protein.</div></div>
+            <div class="menu-item-price">+$3.50</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-panel" id="panel-pitas">
+        <div class="menu-items">
+          <div class="menu-item">
+            <div><span class="menu-item-name">Stuffed Pita Wrap</span><span class="menu-item-tags">Vegan option</span>
+              <div class="menu-item-desc">Warm pita packed with your choice of protein, veggies, and sauce.</div></div>
+            <div class="menu-item-price">$9.49</div>
+          </div>
+          <div class="menu-item">
+            <div><span class="menu-item-name">Chicken Shawarma Wrap</span>
+              <div class="menu-item-desc">Shaved chicken shawarma, pickles, and garlic toum in warm pita.</div></div>
+            <div class="menu-item-price">$10.49</div>
+          </div>
+          <div class="menu-item">
+            <div><span class="menu-item-name">Falafel Wrap</span><span class="menu-item-tags">Vegan</span>
+              <div class="menu-item-desc">Crispy falafel, greens, and tahini wrapped in warm pita.</div></div>
+            <div class="menu-item-price">$9.49</div>
+          </div>
+          <div class="menu-item">
+            <div><span class="menu-item-name">Gyro Wrap</span>
+              <div class="menu-item-desc">Beef and lamb gyro with tzatziki, tomato, and onion.</div></div>
+            <div class="menu-item-price">$10.99</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-panel" id="panel-sides">
+        <div class="menu-items">
+          <div class="menu-item">
+            <div><span class="menu-item-name">Hummus &amp; Pita</span><span class="menu-item-tags">Vegan</span>
+              <div class="menu-item-desc">House-made hummus served with warm pita.</div></div>
+            <div class="menu-item-price">$5.99</div>
+          </div>
+          <div class="menu-item">
+            <div><span class="menu-item-name">Baba Ganoush</span><span class="menu-item-tags">Vegan</span>
+              <div class="menu-item-desc">Smoky roasted eggplant dip with olive oil and pita.</div></div>
+            <div class="menu-item-price">$6.49</div>
+          </div>
+          <div class="menu-item">
+            <div><span class="menu-item-name">Falafel (5pc)</span><span class="menu-item-tags">Vegan</span>
+              <div class="menu-item-desc">Crispy chickpea falafel with tahini sauce.</div></div>
+            <div class="menu-item-price">$5.49</div>
+          </div>
+          <div class="menu-item">
+            <div><span class="menu-item-name">Pickled Turnip &amp; Olives</span><span class="menu-item-tags">Vegan</span>
+              <div class="menu-item-desc">House-pickled turnip and marinated olives.</div></div>
+            <div class="menu-item-price">$3.99</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-panel" id="panel-drinks">
+        <div class="menu-items">
+          <div class="menu-item">
+            <div><span class="menu-item-name">Fountain Soda</span>
+              <div class="menu-item-desc">Regular or diet, free refills for dine-in.</div></div>
+            <div class="menu-item-price">$2.49</div>
+          </div>
+          <div class="menu-item">
+            <div><span class="menu-item-name">Bottled Water</span>
+              <div class="menu-item-desc">Still, 16.9oz.</div></div>
+            <div class="menu-item-price">$1.99</div>
+          </div>
+          <div class="menu-item">
+            <div><span class="menu-item-name">Mint Lemonade</span><span class="menu-item-tags">Vegan</span>
+              <div class="menu-item-desc">Fresh-squeezed lemonade with mint.</div></div>
+            <div class="menu-item-price">$3.49</div>
+          </div>
+          <div class="menu-item">
+            <div><span class="menu-item-name">Hibiscus Iced Tea</span><span class="menu-item-tags">Vegan</span>
+              <div class="menu-item-desc">House-brewed, lightly sweetened.</div></div>
+            <div class="menu-item-price">$3.29</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="menu-note">Prices shown are sample placeholders — swap in your actual menu and pricing before this goes live.</p>
+  </div>
+</section>
+
+<section class="section" id="about">
+  <div class="wrap about">
+    <div class="about-copy reveal">
+      <span class="eyebrow"><span class="dot"></span>About us</span>
+      <h2>A casual spot for fresh, made-your-way Mediterranean.</h2>
+      <p>Pita or Bowl is a build-your-own counter for bowls, salads, and pitas — quick to order, made fresh, and easy to make fully plant-based.</p>
+      <div class="pill-row">
+        <span class="pill">Vegan options</span>
+        <span class="pill">Pickup & delivery</span>
+        <span class="pill">No reservations needed</span>
+        <span class="pill">$10–20 per person</span>
+      </div>
+    </div>
+    <div class="about-visual reveal">
+      <img src="images/interior.jpg" alt="Dining area inside Pita or Bowl in Springfield, IL" style="width:100%;height:100%;object-fit:cover;">
+    </div>
+  </div>
+</section>
+
+<section class="section visit" id="visit">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow"><span class="dot"></span>Visit</span>
+      <h2>Find us in Springfield.</h2>
+      <p>Walk in, call ahead, or order for pickup and delivery.</p>
+    </div>
+    <div class="visit-grid reveal">
+      <div class="visit-info">
+        <dl>
+          <dt>Address</dt>
+          <dd>848 S Grand Ave E<br>Springfield, IL 62703</dd>
+          <dt>Phone</dt>
+          <dd><a href="tel:+12178483136">+1 217-848-3136</a></dd>
+          <dt>Hours</dt>
+          <dd>Opens 11 AM daily</dd>
+          <dt>Rating</dt>
+          <dd>4.9 · 1,040 Google reviews</dd>
+        </dl>
+        <div class="hero-ctas" style="margin-top:32px;">
+          <a href="tel:+12178483136" class="btn btn-primary" style="background:var(--gold); color:var(--ink);">Order Pickup</a>
+          <a href="tel:+12178483136" class="btn btn-ghost" style="border-color:rgba(250,242,225,0.4);">Order Delivery</a>
+        </div>
+      </div>
+      <div class="map-frame">
+        <iframe
+          src="https://www.google.com/maps?q=848+S+Grand+Ave+E,+Springfield,+IL+62703&output=embed"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Map to Pita or Bowl, 848 S Grand Ave E, Springfield, IL 62703">
+        </iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>Pita or Bowl · Springfield, IL</span>
+    <span>Design mockup — not yet live</span>
+  </div>
+</footer>
+
+<script>
+  var toggle = document.getElementById('navToggle');
+  var links = document.getElementById('navLinks');
+  if(toggle){
+    toggle.addEventListener('click', function(){
+      links.classList.toggle('open');
+    });
+    links.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click', function(){ links.classList.remove('open'); });
+    });
+  }
+  var reveals = document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, {threshold:0.15});
+    reveals.forEach(function(el){ io.observe(el); });
+  } else {
+    reveals.forEach(function(el){ el.classList.add('in'); });
+  }
+
+  // Digital menu tabs
+  var tabs = document.querySelectorAll('.menu-tab');
+  var panels = document.querySelectorAll('.menu-panel');
+  tabs.forEach(function(tab){
+    tab.addEventListener('click', function(){
+      tabs.forEach(function(t){ t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
+      panels.forEach(function(p){ p.classList.remove('active'); });
+      tab.classList.add('active');
+      tab.setAttribute('aria-selected','true');
+      var panel = document.getElementById('panel-' + tab.dataset.tab);
+      if(panel){ panel.classList.add('active'); }
+    });
+  });
+</script>
+
+</body>
+</html>
