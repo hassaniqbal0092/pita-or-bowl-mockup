@@ -222,6 +222,105 @@
   .menu-item-price{font-weight:700; font-family:'Fraunces',serif; font-size:1.05rem; white-space:nowrap; padding-top:1px;}
   .menu-note{margin-top:28px; font-size:0.85rem; opacity:0.65; text-align:center;}
 
+  /* item row layout with controls */
+  .menu-item{align-items:center;}
+  .menu-item-info{flex:1; min-width:0;}
+  .menu-item-right{display:flex; align-items:center; gap:16px; flex-shrink:0;}
+  .menu-item-price{min-width:56px; text-align:right;}
+  .menu-item-price.tbd{font-family:'Work Sans',sans-serif; font-weight:600; font-size:0.8rem; opacity:0.55; font-style:italic;}
+
+  .add-btn{
+    appearance:none; border:1px solid var(--olive); background:transparent; color:var(--olive-dark);
+    font-family:'Work Sans',sans-serif; font-weight:700; font-size:0.8rem; letter-spacing:0.02em;
+    padding:8px 16px; border-radius:999px; cursor:pointer; white-space:nowrap;
+    transition:background .15s, color .15s;
+  }
+  .add-btn:hover{background:var(--olive); color:var(--cream);}
+  .add-btn:disabled{opacity:0.4; cursor:not-allowed; border-color:var(--line);}
+
+  .qty-stepper{
+    display:flex; align-items:center; gap:0; border:1px solid var(--olive); border-radius:999px; overflow:hidden;
+  }
+  .qty-btn{
+    appearance:none; border:none; background:var(--cream); color:var(--olive-dark); width:28px; height:28px;
+    font-size:1rem; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center;
+    transition:background .15s;
+  }
+  .qty-btn:hover{background:var(--cream-2);}
+  .qty-val{min-width:20px; text-align:center; font-weight:700; font-size:0.85rem; font-family:'Work Sans',sans-serif;}
+
+  .build-note{
+    margin-top:36px; padding-top:32px; border-top:1px solid var(--line);
+    display:grid; grid-template-columns:repeat(4,1fr); gap:26px;
+  }
+  .build-note-col h4{
+    font-family:'Fraunces',serif; font-weight:600; font-size:0.95rem; margin-bottom:10px;
+  }
+  .build-note-col p{font-size:0.82rem; opacity:0.72; margin:0; line-height:1.6;}
+  .combo-callout{
+    margin-top:24px; background:var(--cream-2); border-radius:var(--radius); padding:16px 20px;
+    font-size:0.88rem; font-weight:600; color:var(--olive-dark);
+  }
+
+  /* floating cart */
+  .cart-fab{
+    position:fixed; right:24px; bottom:24px; z-index:80;
+    background:var(--ink); color:var(--cream); border:none; border-radius:999px;
+    padding:15px 22px; display:flex; align-items:center; gap:10px; cursor:pointer;
+    box-shadow:0 14px 30px -10px rgba(31,51,43,0.5); font-family:'Work Sans',sans-serif;
+    font-weight:700; font-size:0.9rem; transition:transform .15s;
+  }
+  .cart-fab:hover{transform:translateY(-2px);}
+  .cart-fab .badge{
+    background:var(--gold); color:var(--ink); border-radius:999px; min-width:20px; height:20px;
+    display:flex; align-items:center; justify-content:center; font-size:0.75rem; padding:0 5px;
+  }
+  .cart-fab[hidden]{display:none;}
+
+  .cart-overlay{
+    position:fixed; inset:0; background:rgba(31,51,43,0.4); z-index:90; opacity:0; pointer-events:none;
+    transition:opacity .25s ease;
+  }
+  .cart-overlay.open{opacity:1; pointer-events:auto;}
+
+  .cart-panel{
+    position:fixed; top:0; right:0; bottom:0; width:100%; max-width:400px; background:var(--cream);
+    z-index:95; box-shadow:-16px 0 40px -12px rgba(31,51,43,0.35);
+    transform:translateX(100%); transition:transform .3s ease;
+    display:flex; flex-direction:column;
+  }
+  .cart-panel.open{transform:translateX(0);}
+  .cart-head{
+    display:flex; align-items:center; justify-content:space-between; padding:22px 24px;
+    border-bottom:1px solid var(--line);
+  }
+  .cart-head h3{font-size:1.2rem;}
+  .cart-close{
+    appearance:none; border:none; background:none; font-size:1.3rem; cursor:pointer; color:var(--ink);
+    width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+  }
+  .cart-close:hover{background:var(--cream-2);}
+  .cart-body{flex:1; overflow-y:auto; padding:8px 24px;}
+  .cart-empty{padding:48px 0; text-align:center; opacity:0.6; font-size:0.92rem;}
+  .cart-line{
+    display:flex; align-items:center; gap:14px; padding:16px 0; border-bottom:1px solid var(--line);
+  }
+  .cart-line-info{flex:1; min-width:0;}
+  .cart-line-name{font-weight:600; font-size:0.92rem;}
+  .cart-line-unit{font-size:0.78rem; opacity:0.6; margin-top:2px;}
+  .cart-line-total{font-weight:700; font-family:'Fraunces',serif; min-width:56px; text-align:right;}
+  .cart-remove{
+    appearance:none; border:none; background:none; opacity:0.45; cursor:pointer; font-size:0.85rem;
+    padding:4px; line-height:1;
+  }
+  .cart-remove:hover{opacity:0.9;}
+  .cart-foot{border-top:1px solid var(--line); padding:20px 24px 26px;}
+  .cart-total-row{
+    display:flex; justify-content:space-between; align-items:baseline; margin-bottom:16px;
+    font-family:'Fraunces',serif; font-size:1.15rem; font-weight:600;
+  }
+  .cart-note{font-size:0.76rem; opacity:0.6; margin-top:12px; text-align:center;}
+
   /* ---------- ABOUT / VEGAN STRIP ---------- */
   .about{
     display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:center;
@@ -277,6 +376,9 @@
     .digital-menu-head{flex-direction:column; align-items:flex-start;}
     .menu-tabs{overflow-x:auto; flex-wrap:nowrap; -webkit-overflow-scrolling:touch;}
     .menu-tab{white-space:nowrap;}
+    .build-note{grid-template-columns:1fr 1fr;}
+    .cart-fab{right:16px; bottom:16px; padding:13px 18px;}
+    .cart-panel{max-width:100%;}
     .about{grid-template-columns:1fr;}
     .visit-grid{grid-template-columns:1fr;}
     .nav-links{position:fixed; inset:64px 0 0 0; background:var(--cream); flex-direction:column;
@@ -389,25 +491,25 @@
     </div>
     <div class="menu-grid reveal">
       <div class="menu-card">
-        <div class="menu-thumb"><img src="images/platter.jpg" alt="Grilled chicken and beef skewers with tomato and toum at Pita or Bowl"></div>
-        <span class="tag">Bowls</span>
-        <h3>Build-Your-Own Bowl</h3>
-        <p>Start with rice or greens, add your protein, and load up on toppings and sauce.</p>
-        <span class="price">$10–14</span>
+        <div class="menu-thumb"><img src="images/platter.jpg" alt="Grilled chicken and beef skewers at Pita or Bowl"></div>
+        <span class="tag">Build Your Own</span>
+        <h3>Bowls, Pitas &amp; Wraps</h3>
+        <p>Pick your protein, base, sauce, and up to 4 toppings — build it exactly your way.</p>
+        <span class="price">$8.99–$18.99</span>
+      </div>
+      <div class="menu-card">
+        <div class="swatch" style="background:#7A3B49"></div>
+        <span class="tag">Veg Plates</span>
+        <h3>Veggie Plate</h3>
+        <p>Hummus and baba ganoush with grape leaves and falafel — fully plant-based.</p>
+        <span class="price">$12.99</span>
       </div>
       <div class="menu-card">
         <div class="swatch" style="background:#E2A63B"></div>
-        <span class="tag">Salads</span>
-        <h3>Chopped Mediterranean Salad</h3>
-        <p>Crisp greens, cucumber, tomato, feta, and olives, tossed with house lemon vinaigrette.</p>
-        <span class="price">$9–13</span>
-      </div>
-      <div class="menu-card">
-        <div class="menu-thumb"><img src="images/wrap.jpg" alt="Stuffed pita wrap with lettuce, pickled turnip and slaw at Pita or Bowl"></div>
-        <span class="tag">Pitas</span>
-        <h3>Stuffed Pita Wrap</h3>
-        <p>Warm pita packed with your choice of protein, veggies, and sauce, wrapped to go.</p>
-        <span class="price">$9–12</span>
+        <span class="tag">Desserts</span>
+        <h3>Baklava</h3>
+        <p>Classic Middle Eastern baklava, by the piece or a full assortment of six.</p>
+        <span class="price">$1.99–$10.99</span>
       </div>
     </div>
     <div class="teaser-cta reveal">
@@ -423,157 +525,207 @@
         <span class="eyebrow"><span class="dot"></span>Digital menu</span>
         <h2>The full menu, all in one place.</h2>
       </div>
-      <p style="max-width:34ch; opacity:0.8; margin:0;">Browse by category — same menu you'll see on the counter board, right from your phone.</p>
+      <p style="max-width:34ch; opacity:0.8; margin:0;">Same menu as the counter board — tap Add to build an order preview.</p>
     </div>
 
     <div class="menu-tabs reveal" role="tablist" aria-label="Menu categories">
-      <button class="menu-tab active" data-tab="bowls" role="tab" aria-selected="true">Bowls</button>
-      <button class="menu-tab" data-tab="salads" role="tab" aria-selected="false">Salads</button>
-      <button class="menu-tab" data-tab="pitas" role="tab" aria-selected="false">Pitas &amp; Wraps</button>
-      <button class="menu-tab" data-tab="sides" role="tab" aria-selected="false">Sides &amp; Dips</button>
+      <button class="menu-tab active" data-tab="build" role="tab" aria-selected="true">Build Your Own</button>
+      <button class="menu-tab" data-tab="veg" role="tab" aria-selected="false">Veg Plates</button>
+      <button class="menu-tab" data-tab="sides" role="tab" aria-selected="false">Sides</button>
+      <button class="menu-tab" data-tab="desserts" role="tab" aria-selected="false">Desserts</button>
       <button class="menu-tab" data-tab="drinks" role="tab" aria-selected="false">Drinks</button>
     </div>
 
     <div class="menu-panels reveal">
-      <div class="menu-panel active" id="panel-bowls">
+
+      <div class="menu-panel active" id="panel-build">
         <div class="menu-items">
-          <div class="menu-item">
-            <div><span class="menu-item-name">Build-Your-Own Bowl</span><span class="menu-item-tags">Vegan option</span>
-              <div class="menu-item-desc">Rice, greens, or warm pita base with your choice of protein, toppings, and sauce.</div></div>
-            <div class="menu-item-price">$10.99</div>
+          <div class="menu-item" data-id="pita" data-name="Pita" data-price="8.99">
+            <div class="menu-item-info"><span class="menu-item-name">Pita</span><span class="menu-item-tags">Vegan option</span>
+              <div class="menu-item-desc">Toasted wrap — pick 1 protein, 1 base, 1 sauce &amp; any 4 toppings.</div></div>
+            <div class="menu-item-right"><div class="menu-item-price">$8.99</div><div class="menu-item-controls" data-controls></div></div>
           </div>
-          <div class="menu-item">
-            <div><span class="menu-item-name">Chicken Shawarma Bowl</span>
-              <div class="menu-item-desc">Marinated chicken shawarma over rice with hummus, pickled turnip, and toum.</div></div>
-            <div class="menu-item-price">$12.49</div>
+          <div class="menu-item" data-id="wrap" data-name="Wrap" data-price="10.99">
+            <div class="menu-item-info"><span class="menu-item-name">Wrap</span><span class="menu-item-tags">Vegan option</span>
+              <div class="menu-item-desc">Toasted wrap — pick 1 protein, 1 base, 1 sauce &amp; any 4 toppings.</div></div>
+            <div class="menu-item-right"><div class="menu-item-price">$10.99</div><div class="menu-item-controls" data-controls></div></div>
           </div>
-          <div class="menu-item">
-            <div><span class="menu-item-name">Falafel Bowl</span><span class="menu-item-tags">Vegan</span>
-              <div class="menu-item-desc">Crispy falafel, greens, tomato, cucumber, and tahini sauce.</div></div>
-            <div class="menu-item-price">$11.49</div>
+          <div class="menu-item" data-id="starter-bowl" data-name="Starter Bowl" data-price="12.99">
+            <div class="menu-item-info"><span class="menu-item-name">Starter Bowl</span><span class="menu-item-tags">1 protein</span>
+              <div class="menu-item-desc">Includes your choice of 1 base, 1 sauce &amp; up to 4 toppings.</div></div>
+            <div class="menu-item-right"><div class="menu-item-price">$12.99</div><div class="menu-item-controls" data-controls></div></div>
           </div>
-          <div class="menu-item">
-            <div><span class="menu-item-name">Gyro Bowl</span>
-              <div class="menu-item-desc">Seasoned beef and lamb gyro over rice with tzatziki and pickled onion.</div></div>
-            <div class="menu-item-price">$12.99</div>
+          <div class="menu-item" data-id="grand-bowl" data-name="Grand Bowl" data-price="15.99">
+            <div class="menu-item-info"><span class="menu-item-name">Grand Bowl</span><span class="menu-item-tags">2 proteins</span>
+              <div class="menu-item-desc">Includes your choice of 1 base, 1 sauce &amp; up to 4 toppings.</div></div>
+            <div class="menu-item-right"><div class="menu-item-price">$15.99</div><div class="menu-item-controls" data-controls></div></div>
           </div>
-          <div class="menu-item">
-            <div><span class="menu-item-name">Grilled Veggie Bowl</span><span class="menu-item-tags">Vegan</span>
-              <div class="menu-item-desc">Charred seasonal vegetables over rice with hummus and herb sauce.</div></div>
-            <div class="menu-item-price">$10.99</div>
+          <div class="menu-item" data-id="ultimate-bowl" data-name="Ultimate Bowl" data-price="18.99">
+            <div class="menu-item-info"><span class="menu-item-name">Ultimate Bowl</span><span class="menu-item-tags">3 proteins</span>
+              <div class="menu-item-desc">Includes your choice of 1 base, 1 sauce &amp; up to 4 toppings.</div></div>
+            <div class="menu-item-right"><div class="menu-item-price">$18.99</div><div class="menu-item-controls" data-controls></div></div>
           </div>
-          <div class="menu-item">
-            <div><span class="menu-item-name">Kids Bowl</span>
-              <div class="menu-item-desc">Half-size bowl, one protein, two toppings.</div></div>
-            <div class="menu-item-price">$7.49</div>
+        </div>
+
+        <div class="combo-callout reveal">Make it a combo +$4.99 — add fries, rice, or lentil soup plus a drink or water.</div>
+
+        <div class="build-note reveal">
+          <div class="build-note-col">
+            <h4>Choose your base</h4>
+            <p>Basmati Rice, Hummus, Baba Ganoush</p>
+          </div>
+          <div class="build-note-col">
+            <h4>Add your protein</h4>
+            <p>Chicken Shawarma, Shish Kabob, Shish Tawook, Gyro, Falafel, Cauliflower, Kufta</p>
+          </div>
+          <div class="build-note-col">
+            <h4>Choose your topping</h4>
+            <p>Red onion, red cabbage, feta (+$1), cucumber, lettuce, black olives, Arabic pickles, tomato, hot peppers, pickled turnips, chickpeas, parsley</p>
+          </div>
+          <div class="build-note-col">
+            <h4>Sauce it up</h4>
+            <p>Tahini, Dakra, Garlic, Tzatziki, Spicy Tahini, Spicy Garlic, Fire Sauce</p>
           </div>
         </div>
       </div>
 
-      <div class="menu-panel" id="panel-salads">
+      <div class="menu-panel" id="panel-veg">
         <div class="menu-items">
-          <div class="menu-item">
-            <div><span class="menu-item-name">Chopped Mediterranean Salad</span><span class="menu-item-tags">Vegan option</span>
-              <div class="menu-item-desc">Crisp greens, cucumber, tomato, feta, and olives with lemon vinaigrette.</div></div>
-            <div class="menu-item-price">$9.99</div>
+          <div class="menu-item" data-id="lentil-soup" data-name="Lentil Soup" data-price="3.99">
+            <div class="menu-item-info"><span class="menu-item-name">Lentil Soup</span><span class="menu-item-tags">Vegan</span>
+              <div class="menu-item-desc">Healthy and yummy! Lentils are rich in vitamins &amp; fiber.</div></div>
+            <div class="menu-item-right"><div class="menu-item-price">$3.99</div><div class="menu-item-controls" data-controls></div></div>
           </div>
-          <div class="menu-item">
-            <div><span class="menu-item-name">Fattoush Salad</span><span class="menu-item-tags">Vegan</span>
-              <div class="menu-item-desc">Mixed greens, radish, and toasted pita chips with sumac dressing.</div></div>
-            <div class="menu-item-price">$10.49</div>
+          <div class="menu-item" data-id="arabic-mix" data-name="Arabic Mix" data-price="6.99">
+            <div class="menu-item-info"><span class="menu-item-name">Arabic Mix</span><span class="menu-item-tags">Vegan</span>
+              <div class="menu-item-desc">Tomato, cucumber, Arabic pickles, turnips, green pepper, vinaigrette.</div></div>
+            <div class="menu-item-right"><div class="menu-item-price">$6.99</div><div class="menu-item-controls" data-controls></div></div>
           </div>
-          <div class="menu-item">
-            <div><span class="menu-item-name">Tabbouleh</span><span class="menu-item-tags">Vegan</span>
-              <div class="menu-item-desc">Parsley, tomato, bulgur, and mint tossed in lemon and olive oil.</div></div>
-            <div class="menu-item-price">$8.99</div>
+          <div class="menu-item" data-id="veggie-plate" data-name="Veggie Plate" data-price="12.99">
+            <div class="menu-item-info"><span class="menu-item-name">Veggie Plate</span><span class="menu-item-tags">Vegan</span>
+              <div class="menu-item-desc">Hummus, baba ganoush, 4 grape leaves, 4 falafel.</div></div>
+            <div class="menu-item-right"><div class="menu-item-price">$12.99</div><div class="menu-item-controls" data-controls></div></div>
           </div>
-          <div class="menu-item">
-            <div><span class="menu-item-name">Protein-Topped Salad</span>
-              <div class="menu-item-desc">Any house salad topped with your choice of protein.</div></div>
-            <div class="menu-item-price">+$3.50</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="menu-panel" id="panel-pitas">
-        <div class="menu-items">
-          <div class="menu-item">
-            <div><span class="menu-item-name">Stuffed Pita Wrap</span><span class="menu-item-tags">Vegan option</span>
-              <div class="menu-item-desc">Warm pita packed with your choice of protein, veggies, and sauce.</div></div>
-            <div class="menu-item-price">$9.49</div>
-          </div>
-          <div class="menu-item">
-            <div><span class="menu-item-name">Chicken Shawarma Wrap</span>
-              <div class="menu-item-desc">Shaved chicken shawarma, pickles, and garlic toum in warm pita.</div></div>
-            <div class="menu-item-price">$10.49</div>
-          </div>
-          <div class="menu-item">
-            <div><span class="menu-item-name">Falafel Wrap</span><span class="menu-item-tags">Vegan</span>
-              <div class="menu-item-desc">Crispy falafel, greens, and tahini wrapped in warm pita.</div></div>
-            <div class="menu-item-price">$9.49</div>
-          </div>
-          <div class="menu-item">
-            <div><span class="menu-item-name">Gyro Wrap</span>
-              <div class="menu-item-desc">Beef and lamb gyro with tzatziki, tomato, and onion.</div></div>
-            <div class="menu-item-price">$10.99</div>
+          <div class="menu-item" data-id="protein-punch" data-name="Protein Punch" data-price="12.99">
+            <div class="menu-item-info"><span class="menu-item-name">Protein Punch</span><span class="menu-item-tags">Vegan</span>
+              <div class="menu-item-desc">4 falafel, 4 grape leaves, 4 cauliflower — choose hummus or baba ganoush.</div></div>
+            <div class="menu-item-right"><div class="menu-item-price">$12.99</div><div class="menu-item-controls" data-controls></div></div>
           </div>
         </div>
       </div>
 
       <div class="menu-panel" id="panel-sides">
         <div class="menu-items">
-          <div class="menu-item">
-            <div><span class="menu-item-name">Hummus &amp; Pita</span><span class="menu-item-tags">Vegan</span>
-              <div class="menu-item-desc">House-made hummus served with warm pita.</div></div>
-            <div class="menu-item-price">$5.99</div>
+          <div class="menu-item" data-id="hummus-sm" data-name="Hummus (Small)" data-price="3.99">
+            <div class="menu-item-info"><span class="menu-item-name">Hummus (Small)</span><span class="menu-item-tags">Vegan</span>
+              <div class="menu-item-desc">Chickpeas are rich in vitamins and fiber.</div></div>
+            <div class="menu-item-right"><div class="menu-item-price">$3.99</div><div class="menu-item-controls" data-controls></div></div>
           </div>
-          <div class="menu-item">
-            <div><span class="menu-item-name">Baba Ganoush</span><span class="menu-item-tags">Vegan</span>
-              <div class="menu-item-desc">Smoky roasted eggplant dip with olive oil and pita.</div></div>
-            <div class="menu-item-price">$6.49</div>
+          <div class="menu-item" data-id="hummus-lg" data-name="Hummus (Large)" data-price="7.99">
+            <div class="menu-item-info"><span class="menu-item-name">Hummus (Large)</span><span class="menu-item-tags">Vegan</span>
+              <div class="menu-item-desc">Chickpeas are rich in vitamins and fiber.</div></div>
+            <div class="menu-item-right"><div class="menu-item-price">$7.99</div><div class="menu-item-controls" data-controls></div></div>
           </div>
-          <div class="menu-item">
-            <div><span class="menu-item-name">Falafel (5pc)</span><span class="menu-item-tags">Vegan</span>
-              <div class="menu-item-desc">Crispy chickpea falafel with tahini sauce.</div></div>
-            <div class="menu-item-price">$5.49</div>
+          <div class="menu-item" data-id="baba-sm" data-name="Baba Ganoush (Small)" data-price="3.99">
+            <div class="menu-item-info"><span class="menu-item-name">Baba Ganoush (Small)</span><span class="menu-item-tags">Vegan</span>
+              <div class="menu-item-desc">Savory eggplant dip with tahini, garlic and citrus.</div></div>
+            <div class="menu-item-right"><div class="menu-item-price">$3.99</div><div class="menu-item-controls" data-controls></div></div>
           </div>
-          <div class="menu-item">
-            <div><span class="menu-item-name">Pickled Turnip &amp; Olives</span><span class="menu-item-tags">Vegan</span>
-              <div class="menu-item-desc">House-pickled turnip and marinated olives.</div></div>
-            <div class="menu-item-price">$3.99</div>
+          <div class="menu-item" data-id="baba-lg" data-name="Baba Ganoush (Large)" data-price="7.99">
+            <div class="menu-item-info"><span class="menu-item-name">Baba Ganoush (Large)</span><span class="menu-item-tags">Vegan</span>
+              <div class="menu-item-desc">Savory eggplant dip with tahini, garlic and citrus.</div></div>
+            <div class="menu-item-right"><div class="menu-item-price">$7.99</div><div class="menu-item-controls" data-controls></div></div>
+          </div>
+          <div class="menu-item" data-id="pita-chips" data-name="Pita Chips" data-price="2.99">
+            <div class="menu-item-info"><span class="menu-item-name">Pita Chips</span><span class="menu-item-tags">Vegan</span></div>
+            <div class="menu-item-right"><div class="menu-item-price">$2.99</div><div class="menu-item-controls" data-controls></div></div>
+          </div>
+          <div class="menu-item" data-id="fries" data-name="Batata (Fries)" data-price="4.99">
+            <div class="menu-item-info"><span class="menu-item-name">Batata (Fries)</span><span class="menu-item-tags">Vegan</span></div>
+            <div class="menu-item-right"><div class="menu-item-price">$4.99</div><div class="menu-item-controls" data-controls></div></div>
+          </div>
+          <div class="menu-item" data-id="falafel-side" data-name="Falafel (6pc)" data-price="6.99">
+            <div class="menu-item-info"><span class="menu-item-name">Falafel</span><span class="menu-item-tags">6pc · Vegan</span>
+              <div class="menu-item-desc">Fluffy &amp; crispy fried chickpeas.</div></div>
+            <div class="menu-item-right"><div class="menu-item-price">$6.99</div><div class="menu-item-controls" data-controls></div></div>
+          </div>
+          <div class="menu-item" data-id="cauliflower-side" data-name="Cauliflower (6pc)" data-price="6.99">
+            <div class="menu-item-info"><span class="menu-item-name">Cauliflower</span><span class="menu-item-tags">6pc · Vegan</span>
+              <div class="menu-item-desc">Coated with a spice blend.</div></div>
+            <div class="menu-item-right"><div class="menu-item-price">$6.99</div><div class="menu-item-controls" data-controls></div></div>
+          </div>
+          <div class="menu-item" data-id="grape-leaves" data-name="Grape Leaves (6pc)" data-price="6.99">
+            <div class="menu-item-info"><span class="menu-item-name">Grape Leaves</span><span class="menu-item-tags">6pc · Vegan</span>
+              <div class="menu-item-desc">Stuffed with rice &amp; dipped in a tomato-based sauce.</div></div>
+            <div class="menu-item-right"><div class="menu-item-price">$6.99</div><div class="menu-item-controls" data-controls></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-panel" id="panel-desserts">
+        <div class="menu-items">
+          <div class="menu-item" data-id="baklava-1" data-name="Baklava (1pc)" data-price="1.99">
+            <div class="menu-item-info"><span class="menu-item-name">Baklava (1pc)</span>
+              <div class="menu-item-desc">Classic Middle Eastern dessert.</div></div>
+            <div class="menu-item-right"><div class="menu-item-price">$1.99</div><div class="menu-item-controls" data-controls></div></div>
+          </div>
+          <div class="menu-item" data-id="baklava-6" data-name="Baklava (6pc Assortment)" data-price="10.99">
+            <div class="menu-item-info"><span class="menu-item-name">Baklava (6pc Assortment)</span>
+              <div class="menu-item-desc">An assortment of baklava varieties.</div></div>
+            <div class="menu-item-right"><div class="menu-item-price">$10.99</div><div class="menu-item-controls" data-controls></div></div>
+          </div>
+          <div class="menu-item" data-id="baklava-cheesecake" data-name="Baklava Cheesecake" data-price="4.99">
+            <div class="menu-item-info"><span class="menu-item-name">Baklava Cheesecake</span>
+              <div class="menu-item-desc">Best of both worlds — baklava &amp; cheesecake together.</div></div>
+            <div class="menu-item-right"><div class="menu-item-price">$4.99</div><div class="menu-item-controls" data-controls></div></div>
           </div>
         </div>
       </div>
 
       <div class="menu-panel" id="panel-drinks">
         <div class="menu-items">
-          <div class="menu-item">
-            <div><span class="menu-item-name">Fountain Soda</span>
-              <div class="menu-item-desc">Regular or diet, free refills for dine-in.</div></div>
-            <div class="menu-item-price">$2.49</div>
+          <div class="menu-item" data-id="water" data-name="Water Bottle" data-price="">
+            <div class="menu-item-info"><span class="menu-item-name">Water Bottle</span></div>
+            <div class="menu-item-right"><div class="menu-item-price tbd">See board</div><div class="menu-item-controls" data-controls></div></div>
           </div>
-          <div class="menu-item">
-            <div><span class="menu-item-name">Bottled Water</span>
-              <div class="menu-item-desc">Still, 16.9oz.</div></div>
-            <div class="menu-item-price">$1.99</div>
+          <div class="menu-item" data-id="soda" data-name="Soda Can" data-price="">
+            <div class="menu-item-info"><span class="menu-item-name">Soda Can</span></div>
+            <div class="menu-item-right"><div class="menu-item-price tbd">See board</div><div class="menu-item-controls" data-controls></div></div>
           </div>
-          <div class="menu-item">
-            <div><span class="menu-item-name">Mint Lemonade</span><span class="menu-item-tags">Vegan</span>
-              <div class="menu-item-desc">Fresh-squeezed lemonade with mint.</div></div>
-            <div class="menu-item-price">$3.49</div>
-          </div>
-          <div class="menu-item">
-            <div><span class="menu-item-name">Hibiscus Iced Tea</span><span class="menu-item-tags">Vegan</span>
-              <div class="menu-item-desc">House-brewed, lightly sweetened.</div></div>
-            <div class="menu-item-price">$3.29</div>
+          <div class="menu-item" data-id="barbican" data-name="Barbican" data-price="">
+            <div class="menu-item-info"><span class="menu-item-name">Barbican</span></div>
+            <div class="menu-item-right"><div class="menu-item-price tbd">See board</div><div class="menu-item-controls" data-controls></div></div>
           </div>
         </div>
       </div>
+
     </div>
 
-    <p class="menu-note">Prices shown are sample placeholders — swap in your actual menu and pricing before this goes live.</p>
+    <p class="menu-note">Menu items and prices are pulled from the in-store board — drink prices weren't fully visible in the photo, so double-check those three before this goes live.</p>
   </div>
 </section>
+
+<button class="cart-fab" id="cartFab" hidden>
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+  <span>View Order</span>
+  <span class="badge" id="cartBadge">0</span>
+</button>
+
+<div class="cart-overlay" id="cartOverlay"></div>
+<aside class="cart-panel" id="cartPanel" aria-label="Your order">
+  <div class="cart-head">
+    <h3>Your Order</h3>
+    <button class="cart-close" id="cartClose" aria-label="Close order panel">✕</button>
+  </div>
+  <div class="cart-body" id="cartBody">
+    <div class="cart-empty">Nothing added yet — tap Add on any item to build a preview order.</div>
+  </div>
+  <div class="cart-foot">
+    <div class="cart-total-row"><span>Total</span><span id="cartTotal">$0.00</span></div>
+    <a href="tel:+12178483136" class="btn btn-primary" style="width:100%; justify-content:center;">Call to Order</a>
+    <p class="cart-note">This is a demo preview, not a live checkout — orders are placed by phone.</p>
+  </div>
+</aside>
 
 <section class="section" id="about">
   <div class="wrap about">
@@ -673,6 +825,123 @@
       if(panel){ panel.classList.add('active'); }
     });
   });
+
+  // Cart (in-memory demo only — resets on page reload, no real checkout)
+  var cart = {}; // id -> {name, price, qty}
+
+  function money(n){ return '$' + n.toFixed(2); }
+
+  function renderRowControls(row){
+    var id = row.dataset.id;
+    var price = parseFloat(row.dataset.price);
+    var controls = row.querySelector('[data-controls]');
+    if(!controls) return;
+    if(isNaN(price)){
+      controls.innerHTML = '<button class="add-btn" disabled>Ask staff</button>';
+      return;
+    }
+    var qty = cart[id] ? cart[id].qty : 0;
+    if(qty > 0){
+      controls.innerHTML =
+        '<div class="qty-stepper">' +
+          '<button class="qty-btn" data-action="dec" aria-label="Decrease quantity">−</button>' +
+          '<span class="qty-val">' + qty + '</span>' +
+          '<button class="qty-btn" data-action="inc" aria-label="Increase quantity">+</button>' +
+        '</div>';
+    } else {
+      controls.innerHTML = '<button class="add-btn" data-action="add">Add</button>';
+    }
+  }
+
+  function refreshAllRows(){
+    document.querySelectorAll('.menu-item[data-id]').forEach(renderRowControls);
+  }
+
+  function updateItem(id, name, price, delta){
+    if(!cart[id]) cart[id] = {name: name, price: price, qty: 0};
+    cart[id].qty += delta;
+    if(cart[id].qty <= 0) delete cart[id];
+    refreshAllRows();
+    renderCart();
+  }
+
+  document.querySelectorAll('.menu-item[data-id]').forEach(function(row){
+    renderRowControls(row);
+    row.addEventListener('click', function(e){
+      var btn = e.target.closest('[data-action]');
+      if(!btn) return;
+      var id = row.dataset.id;
+      var name = row.dataset.name;
+      var price = parseFloat(row.dataset.price);
+      var action = btn.dataset.action;
+      if(action === 'add' || action === 'inc'){ updateItem(id, name, price, 1); }
+      else if(action === 'dec'){ updateItem(id, name, price, -1); }
+    });
+  });
+
+  var cartFab = document.getElementById('cartFab');
+  var cartBadge = document.getElementById('cartBadge');
+  var cartPanel = document.getElementById('cartPanel');
+  var cartOverlay = document.getElementById('cartOverlay');
+  var cartBody = document.getElementById('cartBody');
+  var cartTotal = document.getElementById('cartTotal');
+  var cartClose = document.getElementById('cartClose');
+
+  function renderCart(){
+    var ids = Object.keys(cart);
+    var count = 0, total = 0;
+    ids.forEach(function(id){ count += cart[id].qty; total += cart[id].qty * cart[id].price; });
+
+    cartBadge.textContent = count;
+    cartFab.hidden = count === 0;
+    cartTotal.textContent = money(total);
+
+    if(ids.length === 0){
+      cartBody.innerHTML = '<div class="cart-empty">Nothing added yet — tap Add on any item to build a preview order.</div>';
+      return;
+    }
+    cartBody.innerHTML = ids.map(function(id){
+      var item = cart[id];
+      return (
+        '<div class="cart-line" data-id="' + id + '">' +
+          '<div class="cart-line-info">' +
+            '<div class="cart-line-name">' + item.name + '</div>' +
+            '<div class="cart-line-unit">' + money(item.price) + ' each</div>' +
+            '<div class="qty-stepper" style="margin-top:8px;">' +
+              '<button class="qty-btn" data-cart-action="dec" aria-label="Decrease quantity">−</button>' +
+              '<span class="qty-val">' + item.qty + '</span>' +
+              '<button class="qty-btn" data-cart-action="inc" aria-label="Increase quantity">+</button>' +
+            '</div>' +
+          '</div>' +
+          '<div style="display:flex; flex-direction:column; align-items:flex-end; gap:8px;">' +
+            '<div class="cart-line-total">' + money(item.qty * item.price) + '</div>' +
+            '<button class="cart-remove" data-cart-action="remove">Remove</button>' +
+          '</div>' +
+        '</div>'
+      );
+    }).join('');
+  }
+
+  cartBody.addEventListener('click', function(e){
+    var btn = e.target.closest('[data-cart-action]');
+    if(!btn) return;
+    var line = e.target.closest('.cart-line');
+    var id = line.dataset.id;
+    var item = cart[id];
+    if(!item) return;
+    var action = btn.dataset.cartAction;
+    if(action === 'inc'){ updateItem(id, item.name, item.price, 1); }
+    else if(action === 'dec'){ updateItem(id, item.name, item.price, -1); }
+    else if(action === 'remove'){ delete cart[id]; refreshAllRows(); renderCart(); }
+  });
+
+  function openCart(){ cartPanel.classList.add('open'); cartOverlay.classList.add('open'); }
+  function closeCart(){ cartPanel.classList.remove('open'); cartOverlay.classList.remove('open'); }
+  cartFab.addEventListener('click', openCart);
+  cartClose.addEventListener('click', closeCart);
+  cartOverlay.addEventListener('click', closeCart);
+
+  renderCart();
 </script>
 
 </body>
