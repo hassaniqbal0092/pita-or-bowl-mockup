@@ -321,6 +321,63 @@
   }
   .cart-note{font-size:0.76rem; opacity:0.6; margin-top:12px; text-align:center;}
 
+  /* Add Menu Item */
+  .add-menu-btn{
+    display:inline-flex; align-items:center; gap:8px;
+    background:transparent; border:1px dashed var(--olive); color:var(--olive-dark);
+    font-family:'Work Sans',sans-serif; font-weight:700; font-size:0.85rem;
+    padding:10px 18px; border-radius:999px; cursor:pointer; white-space:nowrap;
+    transition:background .15s, border-style .15s;
+  }
+  .add-menu-btn:hover{background:var(--cream-2); border-style:solid;}
+
+  .modal-overlay{
+    position:fixed; inset:0; background:rgba(31,51,43,0.45); z-index:98; opacity:0; pointer-events:none;
+    transition:opacity .2s ease; display:flex; align-items:center; justify-content:center; padding:20px;
+  }
+  .modal-overlay.open{opacity:1; pointer-events:auto;}
+  .modal-box{
+    background:var(--cream); border-radius:8px; width:100%; max-width:460px; max-height:88vh;
+    overflow-y:auto; box-shadow:0 30px 60px -15px rgba(31,51,43,0.5);
+    transform:translateY(14px) scale(0.98); transition:transform .2s ease;
+  }
+  .modal-overlay.open .modal-box{transform:translateY(0) scale(1);}
+  .modal-head{
+    display:flex; align-items:center; justify-content:space-between; padding:22px 26px;
+    border-bottom:1px solid var(--line);
+  }
+  .modal-head h3{font-size:1.15rem;}
+  .modal-close{
+    appearance:none; border:none; background:none; font-size:1.2rem; cursor:pointer; color:var(--ink);
+    width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+  }
+  .modal-close:hover{background:var(--cream-2);}
+  .modal-body{padding:22px 26px 8px;}
+  .field{margin-bottom:18px;}
+  .field label{
+    display:block; font-size:0.78rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em;
+    color:var(--olive-dark); margin-bottom:8px;
+  }
+  .field input, .field select, .field textarea{
+    width:100%; border:1px solid var(--line); background:#fff; border-radius:4px; padding:11px 12px;
+    font-family:'Work Sans',sans-serif; font-size:0.95rem; color:var(--ink);
+  }
+  .field input:focus, .field select:focus, .field textarea:focus{
+    outline:none; border-color:var(--olive);
+  }
+  .field textarea{resize:vertical; min-height:64px;}
+  .field-row{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+  .modal-foot{
+    display:flex; justify-content:flex-end; gap:12px; padding:18px 26px 26px;
+  }
+  .field-hint{font-size:0.76rem; opacity:0.6; margin-top:24px;}
+  .toast{
+    position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(12px); z-index:99;
+    background:var(--ink); color:var(--cream); padding:12px 22px; border-radius:999px; font-size:0.88rem;
+    font-weight:600; opacity:0; pointer-events:none; transition:opacity .25s ease, transform .25s ease;
+  }
+  .toast.show{opacity:1; transform:translateX(-50%) translateY(0);}
+
   /* ---------- ABOUT / VEGAN STRIP ---------- */
   .about{
     display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:center;
@@ -379,6 +436,7 @@
     .build-note{grid-template-columns:1fr 1fr;}
     .cart-fab{right:16px; bottom:16px; padding:13px 18px;}
     .cart-panel{max-width:100%;}
+    .field-row{grid-template-columns:1fr;}
     .about{grid-template-columns:1fr;}
     .visit-grid{grid-template-columns:1fr;}
     .nav-links{position:fixed; inset:64px 0 0 0; background:var(--cream); flex-direction:column;
@@ -525,7 +583,10 @@
         <span class="eyebrow"><span class="dot"></span>Digital menu</span>
         <h2>The full menu, all in one place.</h2>
       </div>
-      <p style="max-width:34ch; opacity:0.8; margin:0;">Same menu as the counter board — tap Add to build an order preview.</p>
+      <div style="display:flex; align-items:center; gap:16px; flex-wrap:wrap;">
+        <p style="max-width:30ch; opacity:0.8; margin:0;">Same menu as the counter board — tap Add to build an order preview.</p>
+        <button class="add-menu-btn" id="openAddMenu" type="button">+ Add Menu Item</button>
+      </div>
     </div>
 
     <div class="menu-tabs reveal" role="tablist" aria-label="Menu categories">
@@ -727,6 +788,54 @@
   </div>
 </aside>
 
+<div class="modal-overlay" id="addMenuOverlay">
+  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="addMenuTitle">
+    <div class="modal-head">
+      <h3 id="addMenuTitle">Add Menu Item</h3>
+      <button class="modal-close" id="addMenuClose" aria-label="Close">✕</button>
+    </div>
+    <form id="addMenuForm">
+      <div class="modal-body">
+        <div class="field">
+          <label for="fItemName">Item name</label>
+          <input type="text" id="fItemName" name="itemName" placeholder="e.g. Chicken Shawarma Plate" required>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="fPrice">Price</label>
+            <input type="number" id="fPrice" name="price" placeholder="0.00" step="0.01" min="0" required>
+          </div>
+          <div class="field">
+            <label for="fCategory">Category</label>
+            <select id="fCategory" name="category" required>
+              <option value="build">Build Your Own</option>
+              <option value="veg">Veg Plates</option>
+              <option value="sides">Sides</option>
+              <option value="desserts">Desserts</option>
+              <option value="drinks">Drinks</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label for="fTag">Tag <span style="text-transform:none; font-weight:400; opacity:0.6;">(optional — e.g. "Vegan", "6pc")</span></label>
+          <input type="text" id="fTag" name="tag" placeholder="Vegan">
+        </div>
+        <div class="field">
+          <label for="fDesc">Description <span style="text-transform:none; font-weight:400; opacity:0.6;">(optional)</span></label>
+          <textarea id="fDesc" name="description" placeholder="Short description shown under the item name"></textarea>
+        </div>
+        <p class="field-hint">New items appear instantly in the menu below and can be added to the cart preview like any other item. This is a front-end demo — items reset if the page is reloaded, so they won't be saved permanently until this is connected to a real menu system.</p>
+      </div>
+      <div class="modal-foot">
+        <button type="button" class="btn btn-ghost" id="addMenuCancel">Cancel</button>
+        <button type="submit" class="btn btn-primary">Save Item</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
 <section class="section" id="about">
   <div class="wrap about">
     <div class="about-copy reveal">
@@ -865,7 +974,7 @@
     renderCart();
   }
 
-  document.querySelectorAll('.menu-item[data-id]').forEach(function(row){
+  function wireRow(row){
     renderRowControls(row);
     row.addEventListener('click', function(e){
       var btn = e.target.closest('[data-action]');
@@ -877,7 +986,9 @@
       if(action === 'add' || action === 'inc'){ updateItem(id, name, price, 1); }
       else if(action === 'dec'){ updateItem(id, name, price, -1); }
     });
-  });
+  }
+
+  document.querySelectorAll('.menu-item[data-id]').forEach(wireRow);
 
   var cartFab = document.getElementById('cartFab');
   var cartBadge = document.getElementById('cartBadge');
@@ -942,6 +1053,81 @@
   cartOverlay.addEventListener('click', closeCart);
 
   renderCart();
+
+  // Add Menu Item modal
+  var addMenuOverlay = document.getElementById('addMenuOverlay');
+  var addMenuForm = document.getElementById('addMenuForm');
+  var toast = document.getElementById('toast');
+  var itemCounter = 0;
+
+  function showToast(msg){
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(function(){ toast.classList.remove('show'); }, 2400);
+  }
+
+  function openAddMenu(){
+    addMenuOverlay.classList.add('open');
+    document.getElementById('fItemName').focus();
+  }
+  function closeAddMenu(){
+    addMenuOverlay.classList.remove('open');
+    addMenuForm.reset();
+  }
+  document.getElementById('openAddMenu').addEventListener('click', openAddMenu);
+  document.getElementById('addMenuClose').addEventListener('click', closeAddMenu);
+  document.getElementById('addMenuCancel').addEventListener('click', closeAddMenu);
+  addMenuOverlay.addEventListener('click', function(e){
+    if(e.target === addMenuOverlay) closeAddMenu();
+  });
+
+  function slugify(str){
+    return str.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+  }
+
+  addMenuForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    var name = document.getElementById('fItemName').value.trim();
+    var price = parseFloat(document.getElementById('fPrice').value);
+    var category = document.getElementById('fCategory').value;
+    var tag = document.getElementById('fTag').value.trim();
+    var desc = document.getElementById('fDesc').value.trim();
+    if(!name || isNaN(price)) return;
+
+    itemCounter++;
+    var id = 'custom-' + slugify(name) + '-' + itemCounter;
+
+    var row = document.createElement('div');
+    row.className = 'menu-item';
+    row.dataset.id = id;
+    row.dataset.name = name;
+    row.dataset.price = price.toFixed(2);
+
+    var tagHtml = tag ? '<span class="menu-item-tags">' + tag + '</span>' : '';
+    var descHtml = desc ? '<div class="menu-item-desc">' + desc + '</div>' : '';
+
+    row.innerHTML =
+      '<div class="menu-item-info"><span class="menu-item-name">' + name + '</span>' + tagHtml + descHtml + '</div>' +
+      '<div class="menu-item-right"><div class="menu-item-price">$' + price.toFixed(2) + '</div>' +
+      '<div class="menu-item-controls" data-controls></div></div>';
+
+    var targetList = document.querySelector('#panel-' + category + ' .menu-items');
+    if(targetList){
+      targetList.appendChild(row);
+    } else {
+      // fallback: build panel has extra sections after .menu-items, insert at end of its item list
+      document.querySelector('#panel-' + category).prepend(row);
+    }
+    wireRow(row);
+
+    // switch to that category tab so the person sees it land
+    var targetTab = document.querySelector('.menu-tab[data-tab="' + category + '"]');
+    if(targetTab) targetTab.click();
+    row.scrollIntoView({behavior:'smooth', block:'center'});
+
+    closeAddMenu();
+    showToast('"' + name + '" added to the menu');
+  });
 </script>
 
 </body>
